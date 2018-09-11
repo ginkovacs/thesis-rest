@@ -37,4 +37,6 @@ public class CustomerService {
 
     }
 
+    public void deleteCust(Integer id) {customerRepository.deleteById(id);}
+
 }

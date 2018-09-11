@@ -32,4 +32,10 @@ public class CustomerController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @DeleteMapping("deleteCust")
+    public ResponseEntity<Void> deleteCust(@RequestBody Customer customer) {
+        customerService.deleteCust(customer.getId());
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
 }
