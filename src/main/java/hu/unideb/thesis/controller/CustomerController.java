@@ -25,10 +25,9 @@ public class CustomerController {
     }
 
     @PostMapping("add")
-    public ResponseEntity<List<Customer>> addCustomer(@RequestParam String firstName,
-                                                      @RequestParam String lastName) {
+    public ResponseEntity<List<Customer>> addCustomer(@RequestBody Customer customer) {
 
-        customerService.add(firstName, lastName);
+        customerService.add(customer.getFirstName(), customer.getLastName());
 
         return new ResponseEntity<>(HttpStatus.OK);
     }

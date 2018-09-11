@@ -2,6 +2,7 @@ package hu.unideb.thesis.service;
 
 import hu.unideb.thesis.models.Customer;
 import hu.unideb.thesis.repository.CustomerRepository;
+import org.apache.commons.collections4.IteratorUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
@@ -11,7 +12,7 @@ import java.util.List;
 @Service
 public class CustomerService {
 
-    @Autowired
+    @Autowired //autowired van az objectum előtt, akkor a spring által használt bean lesz a változó értéke
     private CustomerRepository customerRepository;
 
     public List<Customer> findAll() {
@@ -31,7 +32,8 @@ public class CustomerService {
             throw new RuntimeException("lastName too long");
         }
 
-        customerRepository.add(firstName, lastName);
+        Customer customer = new Customer(firstName, lastName);
+        customerRepository.save(customer);
 
     }
 
