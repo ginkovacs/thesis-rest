@@ -25,10 +25,10 @@ public class CustomerService {
         Assert.hasLength(firstName, "Missing firstName.");
         Assert.hasLength(lastName, "Missing firstName.");
 
-        if(firstName.length()>10) {
+        if(firstName.length()>50) {
             throw new RuntimeException("firstName too long");
         }
-        if(lastName.length()>10) {
+        if(lastName.length()>50) {
             throw new RuntimeException("lastName too long");
         }
 
