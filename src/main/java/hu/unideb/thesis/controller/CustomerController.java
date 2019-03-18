@@ -17,7 +17,7 @@ public class CustomerController {
     private CustomerService customerService;
 
     @GetMapping("findAll")
-    public ResponseEntity<List<Customer>> getAll(){
+    public ResponseEntity<List<Customer>> getAll() {
 
         List<Customer> list = customerService.findAll();
 
@@ -25,11 +25,11 @@ public class CustomerController {
     }
 
     @PostMapping("add")
-    public ResponseEntity<List<Customer>> addCustomer(@RequestBody Customer customer) {
+    public ResponseEntity<Customer> addCustomer(@RequestBody Customer customer) {
 
-        customerService.add(customer.getFirstName(), customer.getLastName());
+        Customer addedCust = customerService.add(customer.getFirstName(), customer.getLastName());
 
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(addedCust, HttpStatus.OK);
     }
 
     @DeleteMapping("deleteCust")

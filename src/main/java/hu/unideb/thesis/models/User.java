@@ -1,7 +1,11 @@
 package hu.unideb.thesis.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -21,6 +25,10 @@ public class User {
 
     private String password;
 
+    @OneToMany(mappedBy = "user")
+    @JsonManagedReference
+    private List<Course> courses = new ArrayList<>();
+
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_roles",
             joinColumns = @JoinColumn(name = "user_email"),
@@ -31,18 +39,18 @@ public class User {
 
     }
 
-    public User(String username, String email, String password) {
-        this.username = username;
+    public User(String email, String username, String password) {
         this.email = email;
+        this.username = username;
         this.password = password;
     }
 
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
+    public User(String email, String username, String password, List<Course> courses, Set<Role> roles) {
+        this.email = email;
         this.username = username;
+        this.password = password;
+        this.courses = courses;
+        this.roles = roles;
     }
 
     public String getEmail() {
@@ -53,6 +61,14 @@ public class User {
         this.email = email;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     public String getPassword() {
         return password;
     }
@@ -61,11 +77,30 @@ public class User {
         this.password = password;
     }
 
+    public List<Course> getCourses() {
+        return courses;
+    }
+
+    public void setCourses(List<Course> courses) {
+        this.courses = courses;
+    }
+
     public Set<Role> getRoles() {
         return roles;
     }
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "email='" + email + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", courses=" + courses +
+                ", roles=" + roles +
+                '}';
     }
 }

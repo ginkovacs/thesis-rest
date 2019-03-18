@@ -1,10 +1,10 @@
-package hu.unideb.thesis.models;
+package hu.unideb.thesis.models.requests;
 
-public class UserSummary {
+public class UserRequest {
     private String username;
     private String email;
 
-    public UserSummary(String username, String email) {
+    public UserRequest(String username, String email) {
         this.username = username;
         this.email = email;
     }

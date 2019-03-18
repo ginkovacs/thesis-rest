@@ -16,10 +16,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.util.Assert;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.net.URI;
 import java.util.Collections;
 
 @Service
@@ -39,16 +36,16 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    private boolean checkUsername (String email) {
+    private boolean checkUsername(String email) {
         return userRepository.existsByEmail(email);
     }
 
-    public void register (SignUpRequest signUpRequest) {
-        if(userRepository.existsByUsername(signUpRequest.getUsername())) {
+    public void register(SignUpRequest signUpRequest) {
+        if (userRepository.existsByUsername(signUpRequest.getUsername())) {
             throw new RuntimeException("Username is already taken!");
         }
 
-        if(userRepository.existsByEmail(signUpRequest.getEmail())) {
+        if (userRepository.existsByEmail(signUpRequest.getEmail())) {
             throw new RuntimeException("Email Address already in use!");
         }
 
@@ -65,7 +62,7 @@ public class UserService {
         userRepository.save(user);
     }
 
-    public String login (LoginRequest loginRequest) {
+    public String login(LoginRequest loginRequest) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         loginRequest.getUsernameOrEmail(),

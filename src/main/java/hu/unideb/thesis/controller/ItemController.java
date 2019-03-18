@@ -18,8 +18,8 @@ public class ItemController {
 
     @PostMapping("addItem")
     public ResponseEntity<Void> addItem(@RequestParam String name,
-                                              @RequestParam Integer price,
-                                              @RequestParam Integer customerId) {
+                                        @RequestParam Integer price,
+                                        @RequestParam Integer customerId) {
 
         itemService.addItem(name, price, customerId);
         return new ResponseEntity<>(HttpStatus.OK);
@@ -33,7 +33,7 @@ public class ItemController {
 
     @PutMapping("updateItem")
     public ResponseEntity<Void> updateItem(@RequestParam Integer id,
-                                                 @RequestParam Item item) {
+                                           @RequestParam Item item) {
 
         itemService.updateItem(id, item);
         return new ResponseEntity<>(HttpStatus.OK);

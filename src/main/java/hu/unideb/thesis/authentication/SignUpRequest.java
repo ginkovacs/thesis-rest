@@ -1,6 +1,6 @@
 package hu.unideb.thesis.authentication;
 
-import javax.validation.constraints.*;
+import javax.validation.constraints.Size;
 
 public class SignUpRequest {
     @Size(min = 4, max = 45)

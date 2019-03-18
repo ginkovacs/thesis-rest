@@ -17,7 +17,7 @@ public class ItemService {
     @Autowired
     private ItemRepository itemRepository;
 
-    public void addItem (String name, Integer price, Integer customerId) {
+    public void addItem(String name, Integer price, Integer customerId) {
 
         Customer customer = customerRepository.getOne(customerId);
 

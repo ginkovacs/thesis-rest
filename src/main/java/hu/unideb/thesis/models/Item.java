@@ -10,7 +10,7 @@ public class Item {
     private String name;
     private Integer price;
     @ManyToOne
-    @JoinColumn(name="customer_id")
+    @JoinColumn(name = "customer_id")
     private Customer customer;
 
     public Item() {
