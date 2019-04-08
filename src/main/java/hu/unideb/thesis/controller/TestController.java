@@ -44,8 +44,8 @@ public class TestController {
         return new ResponseEntity<>(testService.findTest(id), HttpStatus.OK);
     }
 
-    @GetMapping("findAllTest")
-    public ResponseEntity<List<Test>> findAllTest() {
-        return new ResponseEntity<>(testService.findAllTest(), HttpStatus.OK);
+    @GetMapping("findAll")
+    public ResponseEntity<List<Test>> findAll(@RequestParam Integer courseId) {
+        return new ResponseEntity<>(testService.findAll(courseId), HttpStatus.OK);
     }
 }

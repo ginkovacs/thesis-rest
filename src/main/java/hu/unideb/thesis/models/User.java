@@ -1,5 +1,6 @@
 package hu.unideb.thesis.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
@@ -23,11 +24,22 @@ public class User {
 
     private String username;
 
+    @JsonIgnore
     private String password;
 
     @OneToMany(mappedBy = "user")
     @JsonManagedReference
-    private List<Course> courses = new ArrayList<>();
+    private List<Course> ownedCourses = new ArrayList<>();
+
+    @JsonIgnore
+    @ManyToMany(cascade = { CascadeType.PERSIST,
+            CascadeType.MERGE })
+    @JoinTable(
+            name = "user_course",
+            joinColumns = { @JoinColumn(name = "user_email") },
+            inverseJoinColumns = { @JoinColumn(name = "course_id") }
+    )
+    List<Course> courses = new ArrayList<>();
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_roles",
@@ -43,14 +55,6 @@ public class User {
         this.email = email;
         this.username = username;
         this.password = password;
-    }
-
-    public User(String email, String username, String password, List<Course> courses, Set<Role> roles) {
-        this.email = email;
-        this.username = username;
-        this.password = password;
-        this.courses = courses;
-        this.roles = roles;
     }
 
     public String getEmail() {
@@ -77,12 +81,24 @@ public class User {
         this.password = password;
     }
 
+    public List<Course> getOwnedCourses() {
+        return ownedCourses;
+    }
+
+    public void setOwnedCourses(List<Course> ownedCourses) {
+        this.ownedCourses = ownedCourses;
+    }
+
     public List<Course> getCourses() {
         return courses;
     }
 
     public void setCourses(List<Course> courses) {
         this.courses = courses;
+    }
+
+    public void addCourse(Course course) {
+        this.courses.add(course);
     }
 
     public Set<Role> getRoles() {
@@ -99,6 +115,7 @@ public class User {
                 "email='" + email + '\'' +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
+                ", ownedCourses=" + ownedCourses +
                 ", courses=" + courses +
                 ", roles=" + roles +
                 '}';

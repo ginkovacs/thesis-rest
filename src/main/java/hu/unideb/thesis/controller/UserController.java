@@ -1,6 +1,7 @@
 package hu.unideb.thesis.controller;
 
 import hu.unideb.thesis.authentication.*;
+import hu.unideb.thesis.models.User;
 import hu.unideb.thesis.models.requests.UserRequest;
 import hu.unideb.thesis.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import java.util.List;
 
 
 @RestController
@@ -42,5 +44,10 @@ public class UserController {
     public UserRequest getCurrentUser(@CurrentUser UserPrincipal currentUser) {
         UserRequest userRequest = new UserRequest(currentUser.getUsername(), currentUser.getEmail());
         return userRequest;
+    }
+
+    @GetMapping("/user/findAll")
+    public ResponseEntity<List<User>> findAll() {
+        return new ResponseEntity<>(userService.findAllUser(), HttpStatus.OK);
     }
 }

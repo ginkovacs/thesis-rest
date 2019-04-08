@@ -10,7 +10,9 @@ import hu.unideb.thesis.util.Converter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TestService {
@@ -57,7 +59,9 @@ public class TestService {
                 .orElseThrow(() -> new RuntimeException("No test found"));
     }
 
-    public List<Test> findAllTest() {
-        return testRepository.findAll();
+    public List<Test> findAll(Integer courseId) {
+        Optional<List<Test>> dolog = testRepository.findAllByCourseId(courseId);
+
+        return dolog.orElseGet(ArrayList::new);
     }
 }

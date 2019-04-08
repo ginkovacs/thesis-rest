@@ -1,6 +1,7 @@
 package hu.unideb.thesis.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
@@ -24,13 +25,11 @@ public class Course {
     @JsonBackReference
     private User user;
 
-    public Course() {
-    }
+    @JsonIgnore
+    @ManyToMany(mappedBy = "courses")
+    private List<User> users = new ArrayList<>();
 
-    public Course(String name, List<Test> tests, User user) {
-        this.name = name;
-        this.tests = tests;
-        this.user = user;
+    public Course() {
     }
 
     public Integer getId() {
@@ -65,12 +64,26 @@ public class Course {
         this.tests = tests;
     }
 
+    //létrehozó user
     public User getUser() {
         return user;
     }
 
+    //létrehozó user
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
+    }
+
+    public void addUser(User user) {
+        this.users.add(user);
     }
 
     @Override
@@ -81,6 +94,7 @@ public class Course {
                 ", description='" + description + '\'' +
                 ", tests=" + tests +
                 ", user=" + user +
+                ", users=" + users +
                 '}';
     }
 }

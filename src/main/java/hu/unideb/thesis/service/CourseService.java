@@ -36,6 +36,18 @@ public class CourseService {
         return course;
     }
 
+    public void addUserToCourse(String email, Integer courseId){
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("No user found"));
+
+        Course course = courseRepository.getOne(courseId);
+
+        course.addUser(user);
+        user.addCourse(course);
+
+        userRepository.save(user);
+    }
+
     public void deleteCourse(Integer courseId) {
         courseRepository.deleteById(courseId);
     }

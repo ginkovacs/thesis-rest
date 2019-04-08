@@ -25,6 +25,13 @@ public class CourseController {
         return new ResponseEntity<>(addedCourse, HttpStatus.OK);
     }
 
+    @PutMapping("addUserToCourse")
+    public ResponseEntity<Void> addUserToCourse(@RequestParam String email, @RequestParam Integer courseId) {
+        courseService.addUserToCourse(email, courseId);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
     @DeleteMapping("deleteCourse")
     public ResponseEntity<Void> deleteCourse(@RequestParam Integer courseId) {
         courseService.deleteCourse(courseId);
@@ -49,8 +56,8 @@ public class CourseController {
         return new ResponseEntity<>(courseService.findAll(email), HttpStatus.OK);
     }
 
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<String> handleException() {
-        return new ResponseEntity<>("ne írd át a requestet kézzel, baszd meg", HttpStatus.BAD_REQUEST);
+    @ExceptionHandler({Exception.class})
+    public ResponseEntity<String> handleException(Exception e) {
+        return new ResponseEntity<>("ne írd át a requestet kézzel, baszd meg" + e.getMessage(), HttpStatus.BAD_REQUEST);
     }
 }
