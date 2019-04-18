@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class AnswerRequest {
     private String answer;
     @JsonProperty
-    private Boolean isRightAnswer;
+    private Boolean isRight;
 
     public AnswerRequest() {
     }
@@ -16,7 +16,7 @@ public class AnswerRequest {
 
     public AnswerRequest(String answer, Boolean isRightAnswer) {
         this.answer = answer;
-        this.isRightAnswer = isRightAnswer;
+        this.isRight = isRightAnswer;
     }
 
     public String getAnswer() {
@@ -28,10 +28,10 @@ public class AnswerRequest {
     }
 
     public Boolean getRightAnswer() {
-        return isRightAnswer;
+        return isRight;
     }
 
     public void setRightAnswer(Boolean rightAnswer) {
-        isRightAnswer = rightAnswer;
+        isRight = rightAnswer;
     }
 }
