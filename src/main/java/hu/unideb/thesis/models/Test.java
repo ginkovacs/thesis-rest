@@ -1,6 +1,7 @@
 package hu.unideb.thesis.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
@@ -22,6 +23,10 @@ public class Test {
     @JoinColumn(name = "courseId")
     @JsonBackReference
     private Course course;
+
+    @JsonIgnore
+    @ManyToMany(mappedBy = "tests")
+    private List<User> users = new ArrayList<>();
 
     public Test() {
     }
@@ -56,6 +61,14 @@ public class Test {
 
     public void setCourse(Course course) {
         this.course = course;
+    }
+
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
     }
 
     @Override

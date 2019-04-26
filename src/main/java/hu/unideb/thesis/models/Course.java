@@ -20,6 +20,14 @@ public class Course {
     @JsonManagedReference
     private List<Test> tests = new ArrayList<>();
 
+    @OneToMany(mappedBy = "course")
+    @JsonManagedReference
+    private List<Files> files = new ArrayList<>();
+
+    @OneToMany(mappedBy = "course")
+    @JsonManagedReference
+    private List<Links> links = new ArrayList<>();
+
     @ManyToOne
     @JoinColumn(name = "userEmail")
     @JsonBackReference
@@ -28,6 +36,10 @@ public class Course {
     @JsonIgnore
     @ManyToMany(mappedBy = "courses")
     private List<User> users = new ArrayList<>();
+
+    @OneToMany(mappedBy = "course")
+    @JsonManagedReference
+    private List<Achievement> achievements = new ArrayList<>();
 
     public Course() {
     }
@@ -84,6 +96,30 @@ public class Course {
 
     public void addUser(User user) {
         this.users.add(user);
+    }
+
+    public List<Files> getFiles() {
+        return files;
+    }
+
+    public void setFiles(List<Files> files) {
+        this.files = files;
+    }
+
+    public List<Links> getLinks() {
+        return links;
+    }
+
+    public void setLinks(List<Links> links) {
+        this.links = links;
+    }
+
+    public List<Achievement> getAchievements() {
+        return achievements;
+    }
+
+    public void setAchievements(List<Achievement> achievements) {
+        this.achievements = achievements;
     }
 
     @Override

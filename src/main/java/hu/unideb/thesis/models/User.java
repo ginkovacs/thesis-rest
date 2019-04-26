@@ -47,6 +47,16 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
+    @OneToOne(mappedBy = "user")
+    @JsonManagedReference
+    private Achievement achievement;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "user_tests",
+            joinColumns = @JoinColumn(name = "user_email"),
+            inverseJoinColumns = @JoinColumn(name = "test_id"))
+    private Set<Test> tests = new HashSet<>();
+
     public User() {
 
     }
@@ -107,6 +117,22 @@ public class User {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public Achievement getAchievement() {
+        return achievement;
+    }
+
+    public void setAchievement(Achievement achievement) {
+        this.achievement = achievement;
+    }
+
+    public Set<Test> getTests() {
+        return tests;
+    }
+
+    public void setTests(Set<Test> tests) {
+        this.tests = tests;
     }
 
     @Override

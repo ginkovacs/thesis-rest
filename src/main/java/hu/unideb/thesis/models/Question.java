@@ -18,6 +18,10 @@ public class Question {
     @JsonManagedReference
     private List<Answer> answers = new ArrayList<>();
 
+    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private List<Files> files = new ArrayList<>();
+
     @ManyToOne
     @JoinColumn(name = "testId")
     @JsonBackReference
@@ -48,6 +52,14 @@ public class Question {
 
     public void setAnswers(List<Answer> answers) {
         this.answers = answers;
+    }
+
+    public List<Files> getFiles() {
+        return files;
+    }
+
+    public void setFiles(List<Files> files) {
+        this.files = files;
     }
 
     public Test getTest() {

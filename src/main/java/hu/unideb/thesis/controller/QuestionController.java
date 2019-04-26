@@ -45,7 +45,7 @@ public class QuestionController {
     }
 
     @GetMapping("findAllQuestion")
-    public ResponseEntity<List<Question>> findAllQuestion() {
-        return new ResponseEntity<>(questionService.findAllQuestion(), HttpStatus.OK);
+    public ResponseEntity<List<Question>> findAllQuestion(@RequestParam Integer testId) {
+        return new ResponseEntity<>(questionService.findAllQuestion(testId), HttpStatus.OK);
     }
 }

@@ -10,7 +10,9 @@ import hu.unideb.thesis.repository.TestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static hu.unideb.thesis.util.Converter.requestToAnswerList;
 
@@ -66,8 +68,10 @@ public class QuestionService {
                 .orElseThrow(() -> new RuntimeException("No question found"));
     }
 
-    public List<Question> findAllQuestion() {
-        return questionRepository.findAll();
+    public List<Question> findAllQuestion(Integer testId) {
+        Optional<List<Question>> dolog = questionRepository.findAllByTestId(testId);
+
+        return dolog.orElseGet(ArrayList::new);
     }
 
 
