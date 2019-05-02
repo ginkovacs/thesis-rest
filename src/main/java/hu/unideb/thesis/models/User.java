@@ -47,7 +47,7 @@ public class User {
     private Set<Role> roles = new HashSet<>();
 
     @OneToOne(mappedBy = "user")
-    @JsonIgnore
+    @JsonManagedReference
     private Achievement achievement;
 
     @ManyToMany(fetch = FetchType.LAZY)
