@@ -1,7 +1,6 @@
 package hu.unideb.thesis.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -21,6 +20,7 @@ public class Achievement {
 
     @ManyToOne
     @JoinColumn(name = "testId")
+    @JsonIgnore
     private Test test;
 
     @OneToOne(fetch = FetchType.LAZY)

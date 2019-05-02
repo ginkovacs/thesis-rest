@@ -28,7 +28,6 @@ public class User {
     private String password;
 
     @OneToMany(mappedBy = "user")
-    @JsonManagedReference
     private List<Course> ownedCourses = new ArrayList<>();
 
     @JsonIgnore

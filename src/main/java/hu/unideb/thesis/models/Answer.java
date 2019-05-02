@@ -1,6 +1,6 @@
 package hu.unideb.thesis.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 
@@ -14,7 +14,7 @@ public class Answer {
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "questionId")
-    @JsonBackReference
+    @JsonIgnore
     private Question question;
 
     public Answer() {

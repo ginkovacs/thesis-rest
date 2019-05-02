@@ -1,8 +1,6 @@
 package hu.unideb.thesis.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -17,25 +15,21 @@ public class Course {
     private String description;
 
     @OneToMany(mappedBy = "course")
-    @JsonManagedReference
     private List<Test> tests = new ArrayList<>();
 
     @OneToMany(mappedBy = "course")
-    @JsonManagedReference
     private List<Files> files = new ArrayList<>();
 
     @OneToMany(mappedBy = "course")
-    @JsonManagedReference
     private List<Links> links = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "userEmail")
-    @JsonBackReference
+    @JsonIgnore
     private User user;
 
     @JsonIgnore
     @ManyToMany(mappedBy = "courses")
-    @JsonBackReference
     private List<User> users = new ArrayList<>();
 
     public Course() {

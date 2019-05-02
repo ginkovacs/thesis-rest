@@ -1,6 +1,6 @@
 package hu.unideb.thesis.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 
@@ -14,7 +14,7 @@ public class Links {
 
     @ManyToOne
     @JoinColumn(name = "courseId")
-    @JsonBackReference
+    @JsonIgnore
     private Course course;
 
     public Integer getLinkId() {

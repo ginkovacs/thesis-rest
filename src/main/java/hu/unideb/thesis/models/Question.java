@@ -1,7 +1,6 @@
 package hu.unideb.thesis.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -15,16 +14,14 @@ public class Question {
     private String question;
 
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
-    @JsonManagedReference
     private List<Answer> answers = new ArrayList<>();
 
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
-    @JsonManagedReference
     private List<Files> files = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "testId")
-    @JsonBackReference
+    @JsonIgnore
     private Test test;
 
     public Question() {

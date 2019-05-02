@@ -1,6 +1,6 @@
 package hu.unideb.thesis.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 
@@ -17,12 +17,12 @@ public class Files {
 
     @ManyToOne
     @JoinColumn(name = "courseId")
-    @JsonBackReference
+    @JsonIgnore
     private Course course;
 
     @ManyToOne
     @JoinColumn(name = "questionId")
-    @JsonBackReference
+    @JsonIgnore
     private Question question;
 
     public Files() {
