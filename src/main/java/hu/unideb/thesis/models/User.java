@@ -48,13 +48,14 @@ public class User {
     private Set<Role> roles = new HashSet<>();
 
     @OneToOne(mappedBy = "user")
-    @JsonManagedReference
+    @JsonIgnore
     private Achievement achievement;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_tests",
             joinColumns = @JoinColumn(name = "user_email"),
             inverseJoinColumns = @JoinColumn(name = "test_id"))
+    @JsonIgnore
     private Set<Test> tests = new HashSet<>();
 
     public User() {

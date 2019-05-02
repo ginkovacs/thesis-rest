@@ -1,6 +1,7 @@
 package hu.unideb.thesis.controller;
 
 import hu.unideb.thesis.authentication.*;
+import hu.unideb.thesis.models.LoginResponse;
 import hu.unideb.thesis.models.User;
 import hu.unideb.thesis.models.requests.UserRequest;
 import hu.unideb.thesis.service.UserService;
@@ -28,16 +29,16 @@ public class UserController {
         try {
             userService.register(signUpRequest);
         } catch (RuntimeException e) {
-            return new ResponseEntity(new ApiResponse(false, e.getMessage()), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity( e.getMessage(), HttpStatus.BAD_REQUEST);
         }
 
-        return new ResponseEntity(new ApiResponse(true, "User registered successfully"), HttpStatus.OK);
+        return new ResponseEntity("User registered successfully", HttpStatus.OK);
     }
 
     @PostMapping("/auth/login")
     public ResponseEntity<?> login(@Valid @RequestBody LoginRequest loginRequest) {
-        String jwt = userService.login(loginRequest);
-        return ResponseEntity.ok(new JwtAuthenticationResponse(jwt));
+        LoginResponse loginResponse = userService.login(loginRequest);
+        return ResponseEntity.ok(loginResponse);
     }
 
     @GetMapping("/user")

@@ -13,6 +13,7 @@ public class Files {
 
     private String fileName;
     private String linkToServer;
+    private String type;
 
     @ManyToOne
     @JoinColumn(name = "courseId")
@@ -23,6 +24,9 @@ public class Files {
     @JoinColumn(name = "questionId")
     @JsonBackReference
     private Question question;
+
+    public Files() {
+    }
 
     public Integer getFileId() {
         return fileId;
@@ -46,6 +50,14 @@ public class Files {
 
     public void setLinkToServer(String linkToServer) {
         this.linkToServer = linkToServer;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public Course getCourse() {

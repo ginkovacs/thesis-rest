@@ -60,8 +60,8 @@ public class TestService {
     }
 
     public List<Test> findAll(Integer courseId) {
-        Optional<List<Test>> dolog = testRepository.findAllByCourseId(courseId);
+        Optional<List<Test>> testList = testRepository.findAllByCourseId(courseId);
 
-        return dolog.orElseGet(ArrayList::new);
+        return testList.orElseGet(ArrayList::new);
     }
 }

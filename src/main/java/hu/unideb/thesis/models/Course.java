@@ -35,11 +35,8 @@ public class Course {
 
     @JsonIgnore
     @ManyToMany(mappedBy = "courses")
+    @JsonBackReference
     private List<User> users = new ArrayList<>();
-
-    @OneToMany(mappedBy = "course")
-    @JsonManagedReference
-    private List<Achievement> achievements = new ArrayList<>();
 
     public Course() {
     }
@@ -112,14 +109,6 @@ public class Course {
 
     public void setLinks(List<Links> links) {
         this.links = links;
-    }
-
-    public List<Achievement> getAchievements() {
-        return achievements;
-    }
-
-    public void setAchievements(List<Achievement> achievements) {
-        this.achievements = achievements;
     }
 
     @Override

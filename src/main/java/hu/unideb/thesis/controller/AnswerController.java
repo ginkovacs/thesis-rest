@@ -16,7 +16,7 @@ public class AnswerController {
     @Autowired
     private AnswerService answerService;
 
-    @PostMapping("addAnswer")
+    @PostMapping("addAnswerToQuestion")
     public ResponseEntity<Answer> addAnswer(@RequestBody AnswerRequest answer, @RequestParam Integer questionId) {
 
         Answer addedQuest = answerService.addAnswer(answer, questionId);

@@ -69,9 +69,9 @@ public class QuestionService {
     }
 
     public List<Question> findAllQuestion(Integer testId) {
-        Optional<List<Question>> dolog = questionRepository.findAllByTestId(testId);
+        Optional<List<Question>> questionList = questionRepository.findAllByTestId(testId);
 
-        return dolog.orElseGet(ArrayList::new);
+        return questionList.orElseGet(ArrayList::new);
     }
 
 

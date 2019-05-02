@@ -1,15 +1,19 @@
 package hu.unideb.thesis.service;
 
+import com.google.api.services.drive.Drive;
+import com.google.api.services.drive.model.File;
+import com.google.api.services.drive.model.FileList;
+import hu.unideb.thesis.fileoperations.Auth;
 import hu.unideb.thesis.models.Course;
 import hu.unideb.thesis.models.User;
 import hu.unideb.thesis.models.requests.CourseRequest;
 import hu.unideb.thesis.repository.CourseRepository;
 import hu.unideb.thesis.repository.UserRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
+import java.security.GeneralSecurityException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -23,7 +27,8 @@ public class CourseService {
     private UserRepository userRepository;
 
     public Course addCourse(CourseRequest request) {
-        User user = userRepository.findByEmail(request.getUserEmail()).orElseThrow(() -> new RuntimeException("Email not found."));
+        User user = userRepository.findByEmail(request.getUserEmail())
+                .orElseThrow(() -> new RuntimeException("Email not found."));
 
         Course course = new Course();
 

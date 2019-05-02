@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+import java.security.GeneralSecurityException;
 import java.util.List;
 
 @RestController
@@ -52,7 +54,7 @@ public class CourseController {
     }
 
     @GetMapping("findAll")
-    public ResponseEntity<List<Course>> findAll(@RequestParam String email) {
+    public ResponseEntity<List<Course>> findAll(@RequestParam String email){
         return new ResponseEntity<>(courseService.findAll(email), HttpStatus.OK);
     }
 

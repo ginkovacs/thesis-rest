@@ -4,6 +4,7 @@ import hu.unideb.thesis.authentication.JwtTokenProvider;
 import hu.unideb.thesis.authentication.LoginRequest;
 import hu.unideb.thesis.authentication.SignUpRequest;
 import hu.unideb.thesis.authentication.exception.AppException;
+import hu.unideb.thesis.models.LoginResponse;
 import hu.unideb.thesis.models.Role;
 import hu.unideb.thesis.models.RoleName;
 import hu.unideb.thesis.models.User;
@@ -50,7 +51,7 @@ public class UserService {
             throw new RuntimeException("Email Address already in use!");
         }
 
-        // Creating user's account
+        // Felhasználó accountjának létrehozása
         User user = new User(signUpRequest.getUsername(), signUpRequest.getEmail(), signUpRequest.getPassword());
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -63,7 +64,7 @@ public class UserService {
         userRepository.save(user);
     }
 
-    public String login(LoginRequest loginRequest) {
+    public LoginResponse login(LoginRequest loginRequest) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         loginRequest.getUsernameOrEmail(),
@@ -73,7 +74,13 @@ public class UserService {
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        return tokenProvider.generateToken(authentication);
+        LoginResponse loginResponse = new LoginResponse();
+        loginResponse.setToken(tokenProvider.generateToken(authentication));
+
+        User user = userRepository.findByEmail(loginRequest.getUsernameOrEmail()).get();
+        loginResponse.setRoles(user.getRoles());
+
+        return loginResponse;
     }
 
     public List<User> findAllUser() {
